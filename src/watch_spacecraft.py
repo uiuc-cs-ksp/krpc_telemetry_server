@@ -81,7 +81,7 @@ class TelemetryShipFactory(object):
 	def create_ship(self, a_connection):
 		new_ship = TelemetryShip(a_connection, a_connection.space_center.active_vessel)
 
-		#resources
+		#resources DEFAULT
 		r_systems = TelemetrySubsystem("Resources","resou")
 		total_e = TelemetryMeasurement("ElectricCharge","echarge","kwh","float",lambda x: x.resources.amount("ElectricCharge"))
 		r_systems.add_child(total_e)
@@ -95,8 +95,13 @@ class TelemetryShipFactory(object):
 		total_mono = TelemetryMeasurement("Monopropellant","mono","liters","float",lambda x:x.resources.amount("Monopropellant"))
 		r_systems.add_child(total_mono)
 
+		total_ablator = TelemetryMeasurement("Ablator","ablator","units","float",lambda x:x.resources.amount("Ablator"))
+		r_systems.add_child(total_ablator)
+
 		total_ore = TelemetryMeasurement("Ore","ore","kilograms","float",lambda x:x.resources.amount("Ore"))
 		r_systems.add_child(total_ore)
+
+		#
 
 		new_ship.add_child(r_systems)
 
